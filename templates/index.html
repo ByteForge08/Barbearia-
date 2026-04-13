@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbearia Prata | Agendamento</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+    <button class="btn-login-flutuante" onclick="abrirModal()">ÁREA DO BARBEIRO</button>
+    
+    <main class="container">
+        <header>
+            <h1>BARBER<span>SHOP</span></h1>
+            <p>Agende seu horário em poucos segundos</p>
+        </header>
+
+        <section class="card">
+            <form id="form-agendamento" action="/agendar" method="POST">
+                <div class="input-group">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" name="nome" placeholder="Ex: Matheus Carvalho" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="telefone">WhatsApp</label>
+                    <input type="tel" id="telefone" name="telefone" placeholder="(83) 99999-9999" required>
+                </div>
+
+                <div class="row">
+                    <div class="input-group">
+                        <label for="servico">Serviço</label>
+                        <select id="servico" name="servico" required>
+                            <option value="">Selecione...</option>
+                            <option value="Corte">Corte - R$ 20</option>
+                            <option value="Barba">Barba - R$ 15</option>
+                            <option value="Combo">Combo - R$ 35</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="barbeiro">Barbeiro</label>
+                        <select id="barbeiro" name="barbeiro" required>
+                            <option value="">Escolha...</option>
+                            <option value="Yuri">Yuri</option>
+                            <option value="Wesley">Wesley</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-group">
+                        <label for="data">Data</label>
+                        <input type="date" id="data" name="data" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="hora">Horário</label>
+                        <select id="hora" name="hora" required>
+                            <option value="">--:--</option>
+                            <option value="09:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-confirmar">CONFIRMAR AGENDAMENTO</button>
+            </form>
+        </section>
+
+        <section class="vitrine-cortes">
+            <h2>Nossos Estilos Principais</h2>
+            <p>Escolha o visual que mais combina com você</p>
+            
+            <div class="grade-cortes">
+                <div class="item-corte">
+                    <img src="{{ url_for('static', filename='degrade.png') }}" alt="Degradê">
+                    <h3>Degradê</h3>
+
+                </div>
+                <div class="item-corte">
+                    <img src="{{ url_for('static', filename='militar.png') }}" alt="Militar">
+                    <h3>Militar</h3>
+
+                </div>
+                <div class="item-corte">
+                    <img src="{{ url_for('static', filename='cortesocial.png') }}" alt="Social">
+                    <h3>Social</h3>
+                    
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="modalLogin" class="modal">
+        <div class="modal-content card">
+            <span class="close" onclick="fecharModal()">&times;</span>
+            <h2>ACESSO<span> RESTRITO</span></h2>
+            <form action="/login" method="POST">
+                <div class="input-group">
+                    <label>E-mail</label>
+                    <input type="email" name="email" required placeholder="email">
+                </div>
+                <div class="input-group">
+                    <label>Senha</label>
+                    <input type="password" name="senha" required placeholder="******">
+                </div>
+                <button type="submit" class="btn-confirmar">ENTRAR NO PAINEL</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <script>
+          {% for category, message in messages %}
+            Swal.fire({
+              title: '{{ "Sucesso!" if category == "sucesso-agendamento" else "Ops!" }}',
+              text: '{{ message }}',
+              icon: '{{ "success" if category == "sucesso-agendamento" else "error" }}',
+              background: '#1a1a1a',
+              color: '#ffffff',
+              confirmButtonColor: '#c9a86a',
+              iconColor: '#c9a86a'
+            });
+          {% endfor %}
+        </script>
+      {% endif %}
+    {% endwith %}
+
+</body>
+</html>

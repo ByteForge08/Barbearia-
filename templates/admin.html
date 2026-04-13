@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Painel Admin | Barbearia Prata</title>
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>PAINEL<span>ADMIN</span></h1>
+            <p>Gerencie os agendamentos do dia</p>
+        </header>
+
+        <section class="card" style="max-width: 800px;">
+            <table style="width: 100%; color: white; border-collapse: collapse;">
+                <thead>
+                    <tr style="color: #c9a86a; border-bottom: 1px solid #333;">
+                        <th style="padding: 10px;">Cliente</th>
+                        <th>Serviço</th>
+                        <th>Data/Hora</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for agend in agendamentos %}
+                    <tr style="border-bottom: 1px solid #222; text-align: center;">
+                        <td style="padding: 15px;">{{ agend[1] }}</td>
+                        <td>{{ agend[3] }}</td>
+                        <td>{{ agend[5] }} às {{ agend[6] }}</td>
+                        <td><span style="color: #00ff00;">Confirmado</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="/logout" class="btn-confirmar" style="text-decoration: none; display: block; text-align: center; margin-top: 20px;">SAIR DO SISTEMA</a>
+        </section>
+    </main>
+</body>
+</html>
