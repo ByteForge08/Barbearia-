@@ -43,12 +43,12 @@ def init_db():
         )
     ''')
     
-    # Email: adminbarbeiro@prata.com | Senha: barbeariaprata123!
+    # Email: adminbarbeiro@gmail.com | Senha: barbeariaprata123!
     try:
         cursor.execute('''
             INSERT INTO usuarios (nome, email, senha, tipo) 
             VALUES (?, ?, ?, ?)
-        ''', ('Yuri Prata', 'adminbarbeiro@prata.com', 'barbeariaprata123!', 'barbeiro'))
+        ''', ('Yuri Prata', 'adminbarbeiro@gmail.com', 'barbeariaprata123!', 'barbeiro'))
         conn.commit()
     except sqlite3.IntegrityError:
         pass
